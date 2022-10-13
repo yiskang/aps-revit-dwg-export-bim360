@@ -1,6 +1,6 @@
 # Export DWGs from Revit files with Design Automation
 
-[![Node.js](https://img.shields.io/badge/Node.js-8.0-blue.svg)](https://nodejs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-16.15.1-blue.svg)](https://nodejs.org/)
 [![npm](https://img.shields.io/badge/npm-4.0-blue.svg)](https://www.npmjs.com/)
 ![Platforms](https://img.shields.io/badge/Web-Windows%20%7C%20MacOS%20%7C%20Linux-lightgray.svg)
 [![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](http://developer.autodesk.com/)
@@ -8,8 +8,8 @@
 
 
 ![Windows](https://img.shields.io/badge/Plugins-Windows-lightgrey.svg)
-![.NET](https://img.shields.io/badge/.NET%20Framework-4.7-blue.svg)
-[![Revit-2019](https://img.shields.io/badge/Revit-2019-lightgrey.svg)](http://autodesk.com/revit)
+![.NET](https://img.shields.io/badge/.NET%20Framework-4.8-blue.svg)
+[![Revit-2021](https://img.shields.io/badge/Revit-2021-lightgrey.svg)](http://autodesk.com/revit)
 
 
 ![Advanced](https://img.shields.io/badge/Level-Advanced-red.svg)
@@ -17,7 +17,7 @@
 
 # Description
 
-This sample demonstrated how to export Revit 3D views to DWGs using Design Automation for Revit API.
+This sample demonstrated how to export Revit views to DWGs using Design Automation for Revit API.
 
 # Thumbnail
 ![thumbnail](/thumbnail.png)
@@ -39,8 +39,8 @@ This sample demonstrated how to export Revit 3D views to DWGs using Design Autom
 1. **Forge Account**: Learn how to create a Forge Account, activate subscription and create an app at [this tutorial](http://learnforge.autodesk.io/#/account/). 
 2. **Visual Code**: Visual Code (Windows or MacOS).
 3. **ngrok**: Routing tool, [download here](https://ngrok.com/)
-4. **Revit 2019**: required to compile changes into the plugin
-5. **JavaScript ES6** syntax for server-side.
+4. **Revit 2021**: required to compile changes into the plugin
+5. **JavaScript** syntax for server-side.
 6. **JavaScript** basic knowledge with **jQuery**
 
 
@@ -148,10 +148,8 @@ After installing Github desktop for Windows, on the Git Shell, if you see a ***e
 - Be aware of the version of [socket.io](https://www.npmjs.com/package/socket.io) used in the [index.html](./public/index.html). It should be the same version installed with the npm.
 - Before using the sample to call the workitem, you need to setup your Appbundle & Activity of Design Automation, you can follow my Postman script to understand the whole process, or you can simply use the `Configure` button in the Web Application to create the Appbundle & Activity([https://youtu.be/1NCeH7acIko](https://youtu.be/1NCeH7acIko)). 
 - Currently Revit Cloud Worksharing is not supported by the Design Automation.  The scenario that this sample demonstrates is applicable only with a file-based Revit model license.
-- It takes time for BIM360 to automatically translate the new uploaded Revit file version, please wait for a while to see the viewable and properties.
 - Client JavaScript requires modern browser.
 - Currently, the sample supports Design Automation engine 2021, you can use `Configure` button to delete|create different versions of Design Automation Revit engine.
-- Currently, the sample only supports list out the 3D views configured within the chosen view sets of the [Publish Settings](https://knowledge.autodesk.com/support/revit-products/learn-explore/caas/CloudHelp/cloudhelp/2017/ENU/Revit-CAR/files/GUID-09FBF9E2-6ECF-447D-8FA8-12AB16495BC3-htm.html).
 
 ## License
 

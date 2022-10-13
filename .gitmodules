@@ -1,0 +1,3 @@
+[submodule "DWGExporter/PlugIn"]
+	path = DWGExporter/PlugIn
+	url = git@github.com:yiskang/DA4R-DwgExporter.git

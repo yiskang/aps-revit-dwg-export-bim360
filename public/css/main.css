@@ -1,0 +1,71 @@
+﻿html, body{
+  min-height: 100%;
+  height: 100%;
+}
+
+.fill{
+  height: calc(100vh - 150px);
+}
+
+body {
+  padding-top: 60px; /* space for the top nav bar */
+  margin-right: 30px;
+}
+
+#sourceHubs {
+  overflow: auto;
+  width: 100%;
+  height: calc(100vh - 200px);
+}
+
+
+#forgeViewer {
+  width: 100%;
+  /*height: 100%;*/
+  height: calc(100vh - 200px);
+}
+
+#available3dViewsGroup {
+  margin-top: 10px;
+  width: 100%;
+}
+
+#available3dViewsGroup .alert {
+  margin-bottom: 0;
+}
+
+#available3dViewsGroup .alert h4 {
+  margin-top: 10px;
+}
+
+#available3dViewsGroup .checkbox input[type=checkbox],
+#available3dViewsGroup .checkbox-inline input[type=checkbox],
+#available3dViewsGroup .radio input[type=radio],
+#available3dViewsGroup .radio-inline input[type=radio] {
+  margin: 0;
+}
+
+#available3dViewsGroup .checkbox,
+#available3dViewsGroup .radio {
+  position: relative;
+  display: block;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: table;
+  width: 100%;
+}
+
+#available3dViewsGroup .checkbox input,
+#available3dViewsGroup .radio input {
+  vertical-align: middle;
+  height: 100%;
+}
+
+#available3dViewsGroup .table>tbody>tr>td,
+#available3dViewsGroup .table>tbody>tr>th,
+#available3dViewsGroup .table>tfoot>tr>td,
+#available3dViewsGroup .table>tfoot>tr>th,
+#available3dViewsGroup .table>thead>tr>td,
+#available3dViewsGroup .table>thead>tr>th {
+  vertical-align: middle;
+}

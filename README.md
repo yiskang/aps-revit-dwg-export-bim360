@@ -24,6 +24,12 @@ This sample demonstrated how to export Revit views to DWGs using Design Automati
 
 ![thumbnail](/thumbnail2.png)
 
+# Demonstration
+
+Here is the video demonstrating how this sample works quickly.
+
+[![](http://img.youtube.com/vi/VGxAMOBiqB0/0.jpg)](http://www.youtube.com/watch?v=VGxAMOBiqB0 "Demo how to export 2D&3D DWGs from the selected Revit model views.")
+
 <!---# Live Demo
 [https://fileupgradersample.herokuapp.com/](https://fileupgradersample.herokuapp.com/)--->
 

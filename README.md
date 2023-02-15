@@ -34,7 +34,7 @@ Here is the video demonstrating how this sample works quickly.
 [https://fileupgradersample.herokuapp.com/](https://fileupgradersample.herokuapp.com/)--->
 
 # Main Parts of The Work
-1. Create a Revit Plugin to be used within AppBundle of Design Automation for Revit. Please check [PlugIn](./DWGExporter/PlugIn/) 
+1. Create a Revit Plugin to be used within AppBundle of Design Automation for Revit. Please check `PlugIn`folder within the [DWGExporter](./DWGExporter/), which is pointing to my [DA4R-DwgExporter](https://github.com/yiskang/DA4R-DwgExporter/) sample using [git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
 2. Create your App, upload the AppBundle, define your Activity and test the workitem with the Postman collection under [Postman Collection](./DWGExporter/PostmanCollection/), or you can refer ([https://youtu.be/1NCeH7acIko](https://youtu.be/1NCeH7acIko)) and simply use the `Configure` button in the Web Application to create the Appbundle & Activity.
 3. Create the Web App to call the workitem.
 

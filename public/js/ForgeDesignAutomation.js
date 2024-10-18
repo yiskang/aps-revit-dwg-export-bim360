@@ -124,7 +124,7 @@ async function exportDWG(inputRvt, inputJson) {
     let def = $.Deferred();
 
     jQuery.post({
-        url: '/api/forge/da4revit/v1/revit/' + encodeURIComponent(inputRvt) + '/dwg',
+        url: '/api/aps/da4revit/v1/revit/' + encodeURIComponent(inputRvt) + '/dwg',
         contentType: 'application/json', // The data type was sent
         dataType: 'json', // The data type will be received
         data: JSON.stringify(inputJson),
@@ -148,7 +148,7 @@ function cancelWorkitem(workitemId) {
     }
 
     $.ajax({
-        url: '/api/forge/da4revit/v1/revit/' + encodeURIComponent(workitemId),
+        url: '/api/aps/da4revit/v1/revit/' + encodeURIComponent(workitemId),
         type: "delete",
         dataType: "json",
         success: function (res) {
@@ -171,7 +171,7 @@ function getWorkitemStatus(workitemId) {
     }
 
     jQuery.get({
-        url: '/api/forge/da4revit/v1/revit/' + encodeURIComponent(workitemId),
+        url: '/api/aps/da4revit/v1/revit/' + encodeURIComponent(workitemId),
         dataType: 'json',
         success: function (res) {
             def.resolve(res);

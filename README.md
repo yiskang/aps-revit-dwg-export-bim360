@@ -3,8 +3,8 @@
 [![Node.js](https://img.shields.io/badge/Node.js-16.15.1-blue.svg)](https://nodejs.org/)
 [![npm](https://img.shields.io/badge/npm-4.0-blue.svg)](https://www.npmjs.com/)
 ![Platforms](https://img.shields.io/badge/Web-Windows%20%7C%20MacOS%20%7C%20Linux-lightgray.svg)
-[![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](http://developer.autodesk.com/)
-[![Design-Automation](https://img.shields.io/badge/Design%20Automation-v3-green.svg)](http://developer.autodesk.com/)
+[![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](http://aps.autodesk.com/)
+[![Design-Automation](https://img.shields.io/badge/Design%20Automation-v3-green.svg)](http://aps.autodesk.com/)
 
 
 ![Windows](https://img.shields.io/badge/Plugins-Windows-lightgrey.svg)
@@ -28,7 +28,9 @@ Therefore, please don't use it on your production applications directly. If you 
 # Thumbnail
 ![thumbnail](/thumbnail.png)
 
-![thumbnail](/thumbnail2.png)
+![thumbnail 2](/thumbnail2.png)
+
+![thumbnail 3](/thumbnail3.png)
 
 # Demonstration
 
@@ -54,7 +56,7 @@ Here is the video demonstrating how this sample works quickly.
 6. **JavaScript** basic knowledge with **jQuery**
 
 
-For using this sample, you need an Autodesk developer credentials. Visit the [APS Developer Portal](https://developer.autodesk.com), sign up for an account, then [create an app](https://developer.autodesk.com/myapps/create). For this new app, use **http://localhost:3000/api/aps/callback/oauth** as Callback URL. Finally take note of the **Client ID** and **Client Secret**.
+For using this sample, you need an Autodesk developer credentials. Visit the [APS Developer Portal](https://aps.autodesk.com), sign up for an account, then [create an app](https://aps.autodesk.com/myapps/create). For this new app, use **http://localhost:3000/api/aps/callback/oauth** as Callback URL. Finally take note of the **Client ID** and **Client Secret**.
 
 ## Running locally
 
@@ -138,8 +140,8 @@ Documentation:
 - This sample is based on [Learn APS Tutorial](https://github.com/Autodesk-APS/learn.forge.viewhubmodels/tree/nodejs), please check details there about the basic framework if you are not familar. 
 
 - [Design Automation API](https://aps.autodesk.com/en/docs/design-automation/v3/developers_guide/overview/)
-- [BIM 360 API](https://developer.autodesk.com/en/docs/bim360/v1/overview/) and [App Provisioning](https://aps.autodesk.com/en/docs/bim360/v1/tutorials/getting-started/manage-access-to-docs/)
-- [Data Management API](httqqqps://developer.autodesk.com/en/docs/data/v2/overview/)
+- [BIM 360 API](https://aps.autodesk.com/en/docs/bim360/v1/overview/) and [App Provisioning](https://aps.autodesk.com/en/docs/bim360/v1/tutorials/getting-started/manage-access-to-docs/)
+- [Data Management API](httqqqps://aps.autodesk.com/en/docs/data/v2/overview/)
 
 Desktop APIs:
 
@@ -157,9 +159,9 @@ After installing Github desktop for Windows, on the Git Shell, if you see a ***e
 ## Limitation
 - Be aware of the version of [socket.io](https://www.npmjs.com/package/socket.io) used in the [index.html](./public/index.html). It should be the same version installed with the npm.
 - Before using the sample to call the workitem, you need to setup your Appbundle & Activity of Design Automation, you can follow my Postman script to understand the whole process, or you can simply use the `Configure` button in the Web Application to create the Appbundle & Activity([https://youtu.be/1NCeH7acIko](https://youtu.be/1NCeH7acIko)). 
-- Currently Revit Cloud Worksharing is not supported by the Design Automation.  The scenario that this sample demonstrates is applicable only with a file-based Revit model license.
+- Currently Revit Cloud Worksharing is not supported by this sample.  The scenario that this sample demonstrates is applicable only with a file-based Revit model license.
 - Client JavaScript requires modern browser.
-- Currently, the sample supports Design Automation engine 2021, you can use `Configure` button to delete|create different versions of Design Automation Revit engine.
+- Currently, the sample supports Design Automation engine 2023, you can use `Configure` button to delete|create different versions of Design Automation Revit engine.
 
 ## License
 

@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // Copyright (c) Autodesk, Inc. All rights reserved
-// Written by Forge Partner Development
+// Written by Autodesk Developer Advocacy and Support
 //
 // Permission to use, copy, modify, and distribute this software in
 // object code form for any purpose and without fee is hereby granted,
@@ -44,7 +44,7 @@
     onModelRootLoaded() {
       const doc = this.viewer.model.getDocumentNode().getDocument();
       if (!doc) {
-        return console.error('Invalid Forge Document');
+        return console.error('Invalid APS Document');
       }
 
       const filter = {
@@ -54,7 +54,7 @@
       const rootItem = doc.getRoot();
       const viewables = rootItem.search(filter);
       if (viewables.length === 0) {
-        return console.error('Forge document contains no viewables.');
+        return console.error('APS document contains no viewables.');
       }
 
       this.createUI(viewables);
@@ -69,7 +69,7 @@
       console.log(viewables);
 
       if (!viewables || viewables.length === 0) {
-        return console.error('Forge document contains no viewables.');
+        return console.error('APS document contains no viewables.');
       }
 
       $('#viewsUnavailableMessage').addClass('hidden');

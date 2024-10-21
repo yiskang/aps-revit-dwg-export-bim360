@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // Copyright (c) Autodesk, Inc. All rights reserved
-// Written by Forge Partner Development
+// Written by Autodesk Developer Advocacy and Support
 //
 // Permission to use, copy, modify, and distribute this software in
 // object code form for any purpose and without fee is hereby granted,
@@ -29,8 +29,8 @@ router.get('/user/v1/profile', async (req, res) => {
     const user = new UserProfileApi();
     const profile = await user.getUserProfile(oauth.getClient(), internalToken);
     res.json({
-        name: profile.body.firstName + ' ' + profile.body.lastName,
-        picture: profile.body.profileImages.sizeX40
+        name: profile.body.name,
+        picture: profile.body.picture
     });
 });
 

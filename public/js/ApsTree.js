@@ -1,6 +1,6 @@
 ﻿/////////////////////////////////////////////////////////////////////
 // Copyright (c) Autodesk, Inc. All rights reserved
-// Written by Forge Partner Development
+// Written by Autodesk Developer Advocacy and Support
 //
 // Permission to use, copy, modify, and distribute this software in
 // object code form for any purpose and without fee is hereby granted,
@@ -36,7 +36,7 @@ $(document).ready(function () {
         });
         $('#hiddenFrame').attr('src', 'https://accounts.autodesk.com/Authentication/LogOut');
         // learn more about this signout iframe at
-        // https://forge.autodesk.com/blog/log-out-forge
+        // https://aps.autodesk.com/blog/log-out-forge
       })
 
       // and refresh button
@@ -94,11 +94,11 @@ function prepareUserHubsTree() {
       'types': {
           'default': { 'icon': 'glyphicon glyphicon-question-sign' },
           '#': { 'icon': 'glyphicon glyphicon-user' },
-          'hubs': { 'icon': 'https://github.com/Autodesk-Forge/bim360appstore-data.management-nodejs-transfer.storage/raw/master/www/img/a360hub.png' },
-          'personalHub': { 'icon': 'https://github.com/Autodesk-Forge/bim360appstore-data.management-nodejs-transfer.storage/raw/master/www/img/a360hub.png' },
-          'bim360Hubs': { 'icon': 'https://github.com/Autodesk-Forge/bim360appstore-data.management-nodejs-transfer.storage/raw/master/www/img/bim360hub.png' },
-          'bim360projects': { 'icon': 'https://github.com/Autodesk-Forge/bim360appstore-data.management-nodejs-transfer.storage/raw/master/www/img/bim360project.png' },
-          'a360projects': { 'icon': 'https://github.com/Autodesk-Forge/bim360appstore-data.management-nodejs-transfer.storage/raw/master/www/img/a360project.png' },
+          'hubs': { 'icon': 'https://cdn.autodesk.io/dm/xs/a360hub.png' },
+          'personalHub': { 'icon': 'https://cdn.autodesk.io/dm/xs/a360hub.png' },
+          'bim360Hubs': { 'icon': 'https://cdn.autodesk.io/dm/xs/bim360hub.png' },
+          'bim360projects': { 'icon': 'https://cdn.autodesk.io/dm/xs/bim360project.png' },
+          'a360projects': { 'icon': 'https://cdn.autodesk.io/dm/xs/a360project.png' },
           'folders': { 'icon': 'glyphicon glyphicon-folder-open' },
           'items': { 'icon': 'glyphicon glyphicon-file' },
           'bim360documents': { 'icon': 'glyphicon glyphicon-file' },
@@ -138,7 +138,7 @@ function prepareUserHubsTree() {
 
 function showUser() {
   jQuery.ajax({
-    url: '/api/forge/user/v1/profile',
+    url: '/api/aps/user/v1/profile',
     success: function (profile) {
       var img = '<img src="' + profile.picture + '" height="20px">';
       $('#userInfo').html(img + profile.name);

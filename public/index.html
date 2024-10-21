@@ -2,8 +2,9 @@
 <html>
 
 <head>
-  <title>DWG Export</title>
+  <title>Autodesk APS - DWG Export</title>
   <meta charset="utf-8" />
+  <link rel="shortcut icon" href="//cdn.autodesk.io/favicon.ico">
   <!-- Common packages: jQuery, Bootstrap, jsTree -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -13,7 +14,7 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.7/themes/default/style.min.css" />
 
-  <!-- Autodesk Forge Viewer files -->
+  <!-- Autodesk APS Viewer files -->
   <link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/style.min.css"
     type="text/css">
   <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.min.js"></script>
@@ -21,10 +22,10 @@
   <!-- this project files -->
   <link href="css/main.css" rel="stylesheet" />
 
-  <script src="/js/ForgeDesignAutomation.js"></script>
+  <script src="/js/ApsDesignAutomation.js"></script>
   <script src="/js/DAConfigure.js"></script>
-  <script src="/js/ForgeTree.js"></script>
-  <script src="/js/ForgeViewer.js"></script>
+  <script src="/js/ApsTree.js"></script>
+  <script src="/js/ApsViewer.js"></script>
   <script src="/js/RevitViewSelectorExtension.js"></script>
 </head>
 
@@ -34,8 +35,8 @@
     <div class="container-fluid">
       <ul class="nav navbar-nav left col-lg-6">
         <li>
-          <a href="http://developer.autodesk.com" target="_blank">
-            <img alt="Autodesk Forge" src="//developer.static.autodesk.com/images/logo_forge-2-line.png" height="20">
+          <a href="http://aps.autodesk.com" target="_blank">
+            <img alt="Autodesk APS" src="//cdn.autodesk.io/logo/black/stacked.png" height="20">
           </a>
         </li>
       </ul>
@@ -70,9 +71,7 @@
         <div style="padding-top: 10px; text-align: right;">
           <li>
             <button class="btn btn-sm btn-default" id="autodeskSigninButton" hidden>Sign In &nbsp&nbsp
-              <img
-                src="https://github.com/Autodesk-Forge/bim360appstore-data.management-nodejs-transfer.storage/raw/master/www/img/autodesk_text.png"
-                height="20">
+              <img src="//cdn.autodesk.io/autodesk.png" height="20">
             </button>
             <button class="btn btn-sm btn-default" id="autodeskSignOutButton" hidden>Sign Out &nbsp&nbsp<span
                 id="userInfo"></span>
@@ -102,7 +101,7 @@
               <br />
               <br />
               <br /> You may also need to provision your<br /> BIM 360 Docs account for this app.<br />
-              <a href="https://forge.autodesk.com/blog/bim-360-docs-provisioning-forge-apps">Learn more</a>.
+              <a href="https://aps.autodesk.com/en/docs/bim360/v1/tutorials/getting-started/manage-access-to-docs/">Learn more</a>.
             </div>
           </div>
         </div>
@@ -114,7 +113,7 @@
             <div style="padding-top: 10px; text-align: center;">
               <h2><b>Model Viewer</b></h2>
             </div>
-            <div id="forgeViewer">
+            <div id="apsViewer">
             </div>
             <div class="col-sm-1"></div>
           </div>
@@ -271,7 +270,7 @@
           <h4 class="modal-title">Thanks for using this sample!</h4>
         </div>
         <div class="modal-body">
-          <p>To view your BIM 360 Docs files on this app please authorize my Forge Client ID with your BIM 360 Docs
+          <p>To view your BIM 360 Docs files on this app please authorize my APS Client ID with your BIM 360 Docs
             Account.
           </p>
           <p>
@@ -280,7 +279,7 @@
               <span class="glyphicon glyphicon-new-window"></span>
             </button>
           </p>
-          Use this as Forge Client ID:
+          Use this as APS Client ID:
           <div class="input-group">
             <input type="text" readonly="true" aria-describedby="CopyClientID" id="ClientID" class="form-control"
               value="" />
@@ -325,15 +324,12 @@
             <li>From the toolbar, select
               <strong>SETTINGS &gt; Apps &amp; Integrations</strong>.
               <br />
-              <img
-                src="https://github.com/Autodesk-Forge/learn.forge.viewhubmodels/raw/master/img/provisioning/Step1.png"
-                width="500" />
+              <img src="https://cdn.autodesk.io/acc/provision/Step1.png" width="500" />
             </li>
             <li>Click the
               <strong>Add Integration</strong> button.
               <br />
-              <img
-                src="https://github.com/Autodesk-Forge/learn.forge.viewhubmodels/raw/master/img/provisioning/Step2.png" />
+              <img src="https://cdn.autodesk.io/acc/provision/Step2.png" />
             </li>
             <li>Select
               <strong>BIM 360 Account Administration</strong> and
@@ -345,17 +341,15 @@
               <strong>Next</strong>.
             </li>
             <li>In the
-              <strong>Forge Client ID</strong> and
-              <strong>App Name</strong> fields, enter the Forge client ID and app name provided by the app retailer.
+              <strong>APS Client ID</strong> and
+              <strong>App Name</strong> fields, enter the APS client ID and app name provided by the app retailer.
             </li>
             <li>Select the
               <strong>I have saved the Account ID information securely</strong> checkbox.
             </li>
             <li>Click
               <strong>Save</strong>.<br />
-              <img
-                src="https://github.com/Autodesk-Forge/learn.forge.viewhubmodels/raw/master/img/provisioning/Step3.png"
-                width="500" />
+              <img src="https://cdn.autodesk.io/acc/provision/Step3.png" width="500" />
             </li>
             <p></p>
             <p>Congratulations! You can now access your BIM 360 Docs files.</p>

@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // Copyright (c) Autodesk, Inc. All rights reserved
-// Written by Forge Partner Development
+// Written by Autodesk Developer Advocacy and Support
 //
 // Permission to use, copy, modify, and distribute this software in
 // object code form for any purpose and without fee is hereby granted,
@@ -177,12 +177,12 @@ async function getVersions(projectId, itemId, oauthClient, credentials, res) {
     res.json(versions.body.data.map((version) => {
         const dateFormated = new Date(version.attributes.lastModifiedTime).toLocaleString();
         const versionst = version.id.match(/^(.*)\?version=(\d+)$/)[2];
-        const viewerUrn = (version.relationships !== null && version.relationships.derivatives !== null ? version.relationships.derivatives.data.id : null);
-        const versionStorage = (version.relationships !== null && version.relationships.storage !== null &&  version.relationships.storage.meta != null && version.relationships.storage.meta.link != null? version.relationships.storage.meta.link.href : null);
+        const viewerUrn = (version.relationships != null && version.relationships.derivatives != null ? version.relationships.derivatives.data.id : null);
+        const versionStorage = (version.relationships != null && version.relationships.storage != null &&  version.relationships.storage.meta != null && version.relationships.storage.meta.link != null? version.relationships.storage.meta.link.href : null);
         return createTreeNode(
             viewerUrn,
             decodeURI('v' + versionst + ': ' + dateFormated + ' by ' + version.attributes.lastModifiedUserName),
-            (viewerUrn !== null ? 'versions' : 'unsupported'),
+            (viewerUrn != null ? 'versions' : 'unsupported'),
             false,
             versionStorage
         );

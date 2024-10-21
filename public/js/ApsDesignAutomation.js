@@ -28,6 +28,22 @@ $(document).ready(function () {
             }
         }
     });
+
+    $('input[type=radio][name=shouldExportAll]').change(function () {
+        if ($(this).val() == 'exportViewsAll') {
+            $('#availableViewsGroup').addClass('hidden');
+        } else if ($(this).val() == 'selectedViewsOnly') {
+            $('#availableViewsGroup').removeClass('hidden');
+        }
+    });
+
+    $('input[type=radio][name=UseExportSettingName]').change(function () {
+        if ($(this).val() == 'NoSpecified') {
+            $('#exportSettingGroup').addClass('hidden');
+        } else if ($(this).val() == 'exportSettingNameSpecified') {
+            $('#exportSettingGroup').removeClass('hidden');
+        }
+    });
 });
 
 var sourceNode = null;
@@ -84,24 +100,33 @@ async function startWorkitem() {
         return;
     }
 
-    const inputJson = {
-        exportSettingName: '',
-        viewIds: []
-    };
+    const inputJson = {};
 
-    const exportSettingName = $('input#exportSettingName').val();
-    inputJson.exportSettingName = exportSettingName;
-    if (!inputJson.exportSettingName) {
-        updateStatus('error', 'Export Setting cannot be empty');
-        return;
+    const exportViewOption = $('input[type=radio][name=shouldExportAll]:checked').val();
+
+    if (exportViewOption == 'selectedViewsOnly') {
+        const viewIds = $("input[name='viewIds[]']:checked").get().map(chk => $(chk).val());
+        inputJson.viewIds = [].concat(viewIds);
+
+        if (!inputJson.viewIds || inputJson.viewIds.length <= 0) {
+            updateStatus('error', 'No view selected');
+            return;
+        }
+    } else if (exportViewOption == 'exportViewsAll') {
+        inputJson.exportAllViews = true;
     }
 
-    const viewIds = $("input[name='viewIds[]']:checked").get().map(chk => $(chk).val());
-    inputJson.viewIds = [].concat(viewIds);
+    const dwgExportSettings = $('input[type=radio][name=UseExportSettingName]:checked').val();
 
-    if (!inputJson.viewIds || inputJson.viewIds.length <= 0) {
-        updateStatus('error', 'No view selected');
-        return;
+    if (dwgExportSettings == 'exportSettingNameSpecified') {
+        const exportSettingName = $('input#exportSettingName').val();
+        inputJson.exportSettingName = exportSettingName;
+        if (!inputJson.exportSettingName) {
+            updateStatus('error', 'Export Setting cannot be empty');
+            return;
+        }
+    } else if (dwgExportSettings == 'NoSpecified') {
+        inputJson.exportSettingName = '';
     }
 
     try {

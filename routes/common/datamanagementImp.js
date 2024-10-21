@@ -114,7 +114,7 @@ async function getHubs(oauthClient, credentials, res) {
             return null;
         });
     // Only BIM360 hubs are supported for now
-    res.json(treeNodes.filter(node => node !== null));
+    res.json(treeNodes.filter(node => node != null));
 }
 
 async function getProjects(hubId, oauthClient, credentials, res) {
@@ -156,7 +156,7 @@ async function getFolderContents(projectId, folderId, oauthClient, credentials, 
     const folders = new FoldersApi();
     const contents = await folders.getFolderContents(projectId, folderId, {}, oauthClient, credentials);
     const treeNodes = contents.body.data.map((item) => {
-        var name = (item.attributes.displayName !== null ? item.attributes.displayName : item.attributes.name);
+        var name = (item.attributes.displayName != null ? item.attributes.displayName : item.attributes.name);
         if (name !== '') { // BIM 360 Items with no displayName also don't have storage, so not file to transfer
             return createTreeNode(
                 item.links.self.href,
@@ -168,7 +168,7 @@ async function getFolderContents(projectId, folderId, oauthClient, credentials, 
             return null;
         }
     });
-    res.json(treeNodes.filter(node => node !== null));
+    res.json(treeNodes.filter(node => node != null));
 }
 
 async function getVersions(projectId, itemId, oauthClient, credentials, res) {
@@ -178,7 +178,7 @@ async function getVersions(projectId, itemId, oauthClient, credentials, res) {
         const dateFormated = new Date(version.attributes.lastModifiedTime).toLocaleString();
         const versionst = version.id.match(/^(.*)\?version=(\d+)$/)[2];
         const viewerUrn = (version.relationships != null && version.relationships.derivatives != null ? version.relationships.derivatives.data.id : null);
-        const versionStorage = (version.relationships != null && version.relationships.storage != null &&  version.relationships.storage.meta != null && version.relationships.storage.meta.link != null? version.relationships.storage.meta.link.href : null);
+        const versionStorage = (version.relationships != null && version.relationships.storage != null &&  version.relationships.storage.data != null? version.relationships.storage.data.id : null);
         return createTreeNode(
             viewerUrn,
             decodeURI('v' + versionst + ': ' + dateFormated + ' by ' + version.attributes.lastModifiedUserName),

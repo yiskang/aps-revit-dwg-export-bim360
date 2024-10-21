@@ -18,6 +18,9 @@
 
 $(document).ready(function () {
   // first, check if current visitor is signed in
+
+  $('#disclaimerModal').modal({ show : true });
+
   jQuery.ajax({
     url: '/api/aps/oauth/v1/token',
     success: function (res) {
@@ -68,7 +71,6 @@ $(document).ready(function () {
     $("#provisionAccountSave").click(function () {
       $('#provisionAccountModal').modal('toggle');
       $('#sourceHubs').jstree(true).refresh();
-      $('#destinationHubs').jstree(true).refresh();
     });
   });  
 

@@ -69,30 +69,30 @@ router.post('/da4revit/v1/revit/:version_storage/dwg', async (req, res, next) =>
         return;
     }
 
-    // generate S3 download url for the storage
-    const params = inputRvtUrl.split('?')[0].split('/');
-    let bucketKey = null;
-    let objectKey = null;
-    for (let i = 0; i < params.length; i++) {
-        if (params[i] == 'buckets')
-            bucketKey = params[++i];
-        if (params[i] == 'objects')
-            objectKey = params[++i];
-    }
+    // // generate S3 download url for the storage
+    // const params = inputRvtUrl.split('?')[0].split('/');
+    // let bucketKey = null;
+    // let objectKey = null;
+    // for (let i = 0; i < params.length; i++) {
+    //     if (params[i] == 'buckets')
+    //         bucketKey = params[++i];
+    //     if (params[i] == 'objects')
+    //         objectKey = params[++i];
+    // }
 
-    if (bucketKey == null || objectKey == null) {
-        res.status(400).end('failed to get input bueckt key and object key.');
-        return;
-    }
-    const objectApi = new ObjectsApi();
-    const s3UrlOpts = {
-        responseContentDisposition: `attachment; filename=${objectKey}`
-    };
-    const s3Url = await objectApi.getS3DownloadURL(bucketKey, objectKey, s3UrlOpts, req.oauth_client, req.oauth_token)
-    if (!s3Url || !s3Url.body || !s3Url.body.url) {
-        res.status(400).end('failed to get s3 url for the storage.');
-        return;
-    }
+    // if (bucketKey == null || objectKey == null) {
+    //     res.status(400).end('failed to get input bueckt key and object key.');
+    //     return;
+    // }
+    // const objectApi = new ObjectsApi();
+    // const s3UrlOpts = {
+    //     responseContentDisposition: `attachment; filename=${objectKey}`
+    // };
+    // const s3Url = await objectApi.getS3DownloadURL(bucketKey, objectKey, s3UrlOpts, req.oauth_client, req.oauth_token)
+    // if (!s3Url || !s3Url.body || !s3Url.body.url) {
+    //     res.status(400).end('failed to get s3 url for the storage.');
+    //     return;
+    // }
 
     ////////////////////////////////////////////////////////////////////////////////
     // use 2 legged token for design automation
@@ -102,8 +102,9 @@ router.post('/da4revit/v1/revit/:version_storage/dwg', async (req, res, next) =>
 
     // create the temp output storage
     // const bucketKey = credentials.client_id.toLowerCase() + '_designautomation';
+    const bucketKey = credentials.client_id.toLowerCase() + '_designautomation';
     const opt = {
-        bucketKey: credentials.client_id.toLowerCase() + '_designautomation',
+        bucketKey,
         policyKey: 'transient',
     }
     try {
@@ -112,15 +113,19 @@ router.post('/da4revit/v1/revit/:version_storage/dwg', async (req, res, next) =>
     };
 
     try {
-        // migrate to use new S3 upload API
-        var response = await objectApi.getS3UploadURL(opt.bucketKey, Temp_Output_File_Name, null, oauth_client, oauth_token);
-        const signedS3Info = {
-            BucketKey: opt.bucketKey,
-            ObjectKey: Temp_Output_File_Name,
-            UploadKey: response.body.uploadKey
+        const objectApi = new ObjectsApi();
+        let objects = [];
+        objects.push({ objectKey: 'exportedDwgs.zip', data: ' ' })
+        // Create a storage and get the objectId, or you can create the objectId directly by the format "urn:adsk.objects:os.object:<BucketKey>/<ObjectKey>"
+        const resources = await objectApi.uploadResources(bucketKey, objects, {}, oauth_client, oauth_token)
+        const objectId = resources[0].completed.objectId;
+        const objectKey = resources[0].completed.objectKey;
+        const objectInfo = {
+            BucketKey: bucketKey,
+            ObjectKey: objectKey
         };
 
-        let result = await exportDWG(s3Url.body.url, inputJson, response.body.urls[0], signedS3Info, oauth_token);
+        let result = await exportDWG(inputRvtUrl, inputJson, objectId, objectInfo, oauth_token, req.oauth_token);
         if (result === null || result.statusCode !== 200) {
             console.log('failed to export DWGs from the RVT file');
             res.status(500).end('failed to export DWGs from the RVT file');
@@ -220,17 +225,11 @@ router.post('/callback/designautomation', async (req, res, next) => {
         }
         let index = workitemList.indexOf(workitem);
 
-        if (workitem.createVersionData !== null) {
+        if (workitem.createVersionData != null) {
             workitemStatus.Status = 'Success';
             global.MyApp.SocketIo.emit(SOCKET_TOPIC_WORKITEM, workitemStatus);
-            console.log("Create new version by the workitem:  " + workitem.workitemId);
-
+            console.log("Starting to post handle the DA workitem:  " + workitem.workitemId);
             try {
-                // Call to complete the S3 upload.
-                const objectApi = new ObjectsApi();
-                await objectApi.completeS3Upload(workitem.signedS3Info.BucketKey, workitem.signedS3Info.ObjectKey, { uploadKey: workitem.signedS3Info.UploadKey }, null, req.oauth_client, workitem.access_token_3Legged)
-                console.log("The output Revit Model is completely uploaded.");
-
                 const versions = new VersionsApi();
                 version = await versions.postVersion(workitem.projectId, workitem.createVersionData, req.oauth_client, workitem.access_token_3Legged);
                 if (version === null || version.statusCode !== 201) {
@@ -244,12 +243,12 @@ router.post('/callback/designautomation', async (req, res, next) => {
                 console.log(err);
                 workitemStatus.Status = 'Failed';
             }
-        } else if (workitem.signedS3Info) {
-            // Call to complete the S3 upload the excel file.
+        } else if (workitem.objectInfo) {
+            // Call to generate download link for exported DWG.
+            console.log("Starting to create the signed S3 download link:  " + JSON.stringify(workitem.objectInfo));
             try {
                 const objectApi = new ObjectsApi();
-                const res = await objectApi.completeS3Upload(workitem.signedS3Info.BucketKey, workitem.signedS3Info.ObjectKey, { uploadKey: workitem.signedS3Info.UploadKey }, null, req.oauth_client, workitem.access_token_2Legged)
-                const downloadInfo = await objectApi.getS3DownloadURL(res.body.bucketKey, res.body.objectKey, null, req.oauth_client, workitem.access_token_2Legged);
+                const downloadInfo = await objectApi.getS3DownloadURL( workitem.objectInfo.BucketKey, workitem.objectInfo.ObjectKey, null, req.oauth_client, workitem.access_token_2Legged );
                 workitemStatus.Status = 'Completed';
                 workitemStatus.ExtraInfo = downloadInfo.body.url;
             } catch (err) {

@@ -134,7 +134,7 @@ function cancelWorkitem(workItemId, access_token) {
 }
 
 
-function exportDWG(inputRvtUrl, inputJson, outputDwgUrl, signedS3Info, access_token_2Legged) {
+function exportDWG(inputRvtUrl, inputJson, outputDwgUrl, objectInfo, access_token_2Legged, user_token) {
 
     return new Promise(function (resolve, reject) {
 
@@ -142,15 +142,24 @@ function exportDWG(inputRvtUrl, inputJson, outputDwgUrl, signedS3Info, access_to
                 activityId: designAutomation.nickname + '.'+designAutomation.activity_name,
                 arguments: {
                     inputFile: {
-                        url: inputRvtUrl
+                        url: inputRvtUrl,
+                        headers: {
+                            Authorization: 'Bearer ' + user_token.access_token,
+                        }
                     },
                     inputJson: { 
                         url: "data:application/json,"+ JSON.stringify(inputJson)
                     },
                     outputDwg: {
                         verb: 'put',
-                        url: outputDwgUrl
+                        url: outputDwgUrl,
+                        headers:{
+                            Authorization: 'Bearer ' + access_token_2Legged.access_token,
+                        }
                     },
+                    // adskDebug: { //!<<< Uncomment this to get debug info for Design Automation
+                    //     uploadJobFolder: true
+                    // },
                     onComplete: {
                         verb: "post",
                         url: designAutomation.webhook_url
@@ -183,10 +192,8 @@ function exportDWG(inputRvtUrl, inputJson, outputDwgUrl, signedS3Info, access_to
                 }
                 workitemList.push({
                     workitemId: resp.id,
-                    projectId: null,
-                    createVersionData: null,
                     access_token_2Legged: access_token_2Legged,
-                    signedS3Info
+                    objectInfo
                 })
 
                 if (response.statusCode >= 400) {
@@ -262,32 +269,9 @@ async function getNewCreatedStorageInfo(projectId, folderId, fileName, oauth_cli
         console.log('failed to create a storage.');
         return null;
     }
-
-    // setup the url of the new storage
-    const strList = storage.body.data.id.split('/');
-    if (strList.length !== 2) {
-        console.log('storage id is not correct');
-        return null;
-    }
-    // create signed s3 url
-    let response = null;
-    try{
-        const object = new ObjectsApi();
-        response = await object.getS3UploadURL(AUTODESK_HUB_BUCKET_KEY,strList[1], null, oauth_client, oauth_token);
-    }catch( err ){
-        console.log('failed to get signed S3 url.');
-        return null;
-    }
-
     return {
-        "StorageId": storage.body.data.id,
-        "StorageUrl": response.body.urls[0],
-        "SignedS3Info": {
-            BucketKey: AUTODESK_HUB_BUCKET_KEY,
-            ObjectKey: strList[1],
-            UploadKey: response.body.uploadKey
-        }
-    };
+        "StorageId": storage.body.data.id
+    }
 }
 
 

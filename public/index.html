@@ -101,7 +101,8 @@
               <br />
               <br />
               <br /> You may also need to provision your<br /> BIM 360 Docs account for this app.<br />
-              <a href="https://aps.autodesk.com/en/docs/bim360/v1/tutorials/getting-started/manage-access-to-docs/">Learn more</a>.
+              <a href="https://aps.autodesk.com/en/docs/bim360/v1/tutorials/getting-started/manage-access-to-docs/">Learn
+                more</a>.
             </div>
           </div>
         </div>
@@ -132,13 +133,22 @@
                 <div style="padding-top: 10px; text-align: left;">
                   <div class="col-lg-12">
                     <div style="text-align: left;">
-                      <label>Export Option:</label>
+                      <label>Export View Option:</label>
                     </div>
                     <div class="input-group">
-                      <span class="input-group-addon">Export Setting</span>
-                      <input id="exportSettingName" type="text" class="form-control" name="exportSettingName" placeholder="Export DWG Setup name">
+                      <span class="input-group-addon">
+                        <input type="radio" name='shouldExportAll' value='exportViewsAll' checked>
+                      </span>
+                      <label class="form-control">Export all views</label>
                     </div><!-- /input-group -->
-                    <div class="input-group" id="availableViewsGroup" hidden>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <input type="radio" name='shouldExportAll' value='selectedViewsOnly'>
+                      </span>
+                      <label class="form-control">Export selected views</label>
+                    </div><!-- /input-group -->
+
+                    <div class="input-group hidden" id="availableViewsGroup" hidden>
                       <div class="alert alert-warning" role="alert" id="viewsUnavailableMessage">
                         <h4>Please select Revit file left to open any view first</h4>
                       </div>
@@ -162,7 +172,36 @@
 
                   </div>
                 </div>
-              </div>
+              </div><!-- /row -->
+
+              <div class="row">
+                <div style="padding-top: 10px; text-align: left;">
+                  <div class="col-lg-12">
+                    <div style="text-align: left;">
+                      <label>DWG Export Settings:</label>
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <input type="radio" name='UseExportSettingName' value="NoSpecified" checked>
+                      </span>
+                      <label class="form-control">No Specified</label>
+                    </div><!-- /input-group -->
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <input type="radio" name='UseExportSettingName' value='exportSettingNameSpecified'>
+                      </span>
+                      <label class="form-control">Specify one by name</label>
+                    </div><!-- /input-group -->
+
+                    <div class="input-group hidden" id="exportSettingGroup">
+                      <span class="input-group-addon">Export Setting</span>
+                      <input id="exportSettingName" type="text" class="form-control" name="exportSettingName"
+                        placeholder="Export DWG Setup name">
+                    </div><!-- /input-group -->
+
+                  </div>
+                </div>
+              </div><!-- /row -->
             </form>
             <!-- </div> -->
 
@@ -290,7 +329,7 @@
           And this App Name:
           <div class="input-group">
             <input type="text" readonly="true" aria-describedby="CopyAppName" id="AppName" class="form-control"
-              value="Excel Export & Import Sample" />
+              value="Revit DWG Export Sample" />
             <span class="input-group-addon" style="cursor: pointer" data-clipboard-target="#AppName"
               id="CopyAppName">Copy
               to clipboard</span>
@@ -361,6 +400,31 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal Disclaimer  -->
+  <div class="modal fade" tabindex="-1" role="dialog" id="disclaimerModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Disclaimer</h4>
+        </div>
+        <div class="modal-body">
+          <p>This website is just a code sample from Autodesk.</p>
+          <p>This sample demonstrates the possibilities of implementing an Revit DWG exporter using Revit API, and run
+            it on APS Design Automation API for Revit, which means it hasn't been covered with all code tests and
+            behavior tests. So, it may fail in particular cases that are considered in
+            the tested cases.</p>
+          <p>Therefore, please DON'T directly use this sample on your production environments and projects. If you want
+            to use this sample directly on your your production environments and projects, then you must use this sample
+            at your own risks.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">I agree and fully understand the
+            risks</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
   <script>
     new Clipboard('.input-group-addon');
   </script>

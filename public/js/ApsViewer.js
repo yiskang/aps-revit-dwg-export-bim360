@@ -20,8 +20,9 @@ var viewer;
 
 function launchViewer(urn) {
   var options = {
-    env: 'AutodeskProduction',
-    getAccessToken: getForgeToken
+    env: 'AutodeskProduction2',
+    api: 'streamingV2',
+    getAccessToken: getApsToken
   };
 
   var config3d = {
@@ -33,7 +34,7 @@ function launchViewer(urn) {
 
   Autodesk.Viewing.Initializer(options, function () {
     if( !viewer ) {
-      viewer = new Autodesk.Viewing.GuiViewer3D(document.getElementById('forgeViewer'), config3d);
+      viewer = new Autodesk.Viewing.GuiViewer3D(document.getElementById('apsViewer'), config3d);
     } else {
       viewer.impl.unloadCurrentModel();
     }
@@ -56,7 +57,7 @@ function onDocumentLoadFailure(viewerErrorCode) {
   console.error('onDocumentLoadFailure() - errorCode:' + viewerErrorCode);
 }
 
-function getForgeToken(callback) {
+function getApsToken(callback) {
     fetch('/api/aps/oauth/v1/token').then(res => {
       res.json().then(data => {
         callback(data.access_token, data.expires_in);
